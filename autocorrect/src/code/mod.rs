@@ -22,6 +22,7 @@ mod sql;
 mod strings;
 mod swift;
 mod yaml;
+mod jira;
 
 pub use code::*;
 pub use types::*;
@@ -47,6 +48,7 @@ pub use sql::*;
 pub use strings::*;
 pub use swift::*;
 pub use yaml::*;
+pub use jira::*;
 
 /// Lint a file content with filetype.
 ///
@@ -91,6 +93,7 @@ pub fn lint_for(raw: &str, filename_or_ext: &str) -> LintResult {
         "dart" => lint_dart(raw),
         "markdown" => lint_markdown(raw),
         "text" => lint_markdown(raw),
+        "jira" => lint_jira(raw),
         _ => LintResult::new(raw),
     };
 
@@ -142,6 +145,7 @@ pub fn format_for(raw: &str, filename_or_ext: &str) -> FormatResult {
         "dart" => format_dart(raw),
         "markdown" => format_markdown(raw),
         "text" => format_markdown(raw),
+        "jira" => format_jira(raw),
         _ => FormatResult::new(raw),
     };
 

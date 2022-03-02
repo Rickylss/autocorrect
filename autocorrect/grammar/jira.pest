@@ -1,0 +1,52 @@
+expr = { img | link | mark | head | block }
+text = { (!(expr | NEWLINE) ~ ANY)+ }
+
+// Headings
+head_tag = @{
+  "h1. "
+  | "h2. "
+  | "h3. "
+  | "h4. "
+  | "h5. "
+  | "h6. "
+  | "bq. "
+}
+head_start = @{ head_tag }
+head = ${ head_start ~ text }
+
+// Block 
+block_tag = @{
+  "{quote}"
+  | "{panel}"
+}
+block = ${ PUSH(block_tag) ~ text* ~ PUSH(block_tag) }
+
+// Text Effects
+mark_tag = @{
+  "*"
+  | "_"
+  | "??"
+  | "-"
+  | "+"
+  | "^"
+  | "~"
+  | "{quote}"
+  | "{panel}"
+}
+mark = ${ PUSH(mark_tag) ~ string ~ PUSH(mark_tag) }
+string = ${ (!(PEEK | NEWLINE) ~ ANY)* }
+
+// Links
+link = { outlink | anchor }
+outlink = { "[" ~ link_string? ~ (!("]" | NEWLINE) ~ ANY)* ~ "]" }
+link_string = { ANY+ ~ "|" }
+anchor = { "{anchor:" ~(!("}" | NEWLINE) ~ ANY)* ~ "}" }
+
+// images
+img = ${ "!" ~ (!("!" | NEWLINE) ~ ANY)* ~ img_tail? ~ "!" }
+img_tail = ${ "|" ~ ("thumbnail" | (align ~ "," ~ vspace)) }
+align = ${ "align=" ~ ("left" | "right") }
+vspace = ${ "vspace=" ~ ASCII_DIGIT+ }
+
+line = { expr | text | NEWLINE }
+item = { SOI ~ line* ~ EOI }

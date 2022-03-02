@@ -1,0 +1,35 @@
+{panel}
+[新增对{{jira}}格式的支持|#新增对jira格式的支持]
+	[Headings支持|#headings支持]
+	[test effects支持|#test-effects支持]
+	[Lists支持|#lists支持]
+	[Images支持|#images支持]
+{panel}
+h1. {anchor:新增对jira格式的支持}新增对{{jira}}格式的支持
+h2. {anchor:headings支持}Headings支持
+h2. {anchor:test-effects支持}test effects支持
+加粗{*}strong强{*}支持
+
+斜体{_}emphasis斜体{_}支持
+
+bq. 引用block quoted支持
+删除线{-}deleted删除{-}支持
+
+下{~}subscript下{~}支持
+
+上{^}superscript上{^}支持
+
+字体{{monospaced支持}}支持
+
+h2. {anchor:lists支持}Lists支持
+# 你好hello
+# 我好hello
+## 这样也可以like this
+## 再加一条one more
+# 测试test
+##* 这样abc
+##* 这样abc
+##* 这样abc
+
+h2. {anchor:images支持}Images支持
+!https://raw.githubusercontent.com/Rickylss/pics/main/img/image-20220302155721646.png!

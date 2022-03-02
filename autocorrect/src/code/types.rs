@@ -74,7 +74,9 @@ lazy_static! {
     // plain
     "text" => "text",
     "plain" => "text",
-    "txt" => "text"
+    "txt" => "text",
+    // jira
+    "jira" => "jira"
   );
 }
 

@@ -112,6 +112,9 @@ lazy_static! {
     // （）【】「」《》
     static ref LEFT_QUOTE_RE: Regex = regexp!("{}", r" ([（【「《])");
     static ref RIGHT_QUOTE_RE: Regex = regexp!("{}", r"([）】」》]) ");
+    // 中文{{}}中文 -> 中文 {{}} 中文
+    static ref LEFT_DOUBLE_BRACES_QUOTE_RE: Regex = regexp!("{}", r"(\p{CJK})(\{\{)");
+    static ref RIGHT_DOUBLE_BRACES_QUOTE_RE: Regex = regexp!("{}", r"(\}\})(\p{CJK})");
     // Strategies all rules
     static ref STRATEGIES: Vec<Strategery> = vec![
         // EnglishLetter, Number
@@ -216,6 +219,8 @@ fn space_dash_with_hans(text: &str) -> String {
     out = (&DASH_HANS_RE.replace_all(&out, "$1 $2 $3")).to_string();
     out = (&LEFT_QUOTE_RE.replace_all(&out, "$1")).to_string();
     out = (&RIGHT_QUOTE_RE.replace_all(&out, "$1")).to_string();
+    out = (&LEFT_DOUBLE_BRACES_QUOTE_RE.replace_all(&out, "$1 $2")).to_string();
+    out = (&RIGHT_DOUBLE_BRACES_QUOTE_RE.replace_all(&out, "$1 $2")).to_string();
     out
 }
 
